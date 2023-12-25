@@ -1,0 +1,29 @@
+{% extends "common/content.html" %}
+{% block title %}
+    Login
+{% endblock %}
+{% block description %}
+    Input your user id and your password to login an exist account.<br>
+    If your privilege is greater than the account to login, the password could be omitted.<br>
+    Make sure your input is valid.
+{% endblock %}
+{% block form %}
+    <form class="needs-validation" method="post" novalidate>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">User id</label>
+            <input type="text"
+                   class="form-control {{ my_fb_class(form.user_id) }}"
+                   id="exampleFormControlInput1" name="user_id"
+                   placeholder="My user id" value="{% if form.user_id.data %}{{ form.user_id.data }}{% endif %}">
+            {{ my_fb_div(form.user_id, 'Login successfully!') }}
+        </div>
+        <div class="mb-3">
+            <label for="inputPassword5" class="form-label">Password</label>
+            <input type="password" id="inputPassword5"
+                   class="form-control  {{ my_fb_class(form.password) }}"
+                   name="password" placeholder="My password">
+            {{ my_fb_div(form.password, 'Login successfully!') }}
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+{% endblock %}

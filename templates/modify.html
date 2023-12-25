@@ -1,0 +1,97 @@
+{% extends "common/content.html" %}
+{% block title %}
+    Modify
+{% endblock %}
+{% block description %}
+    In this page, you can input the information to modify the selected book.<br>
+    Click the checkbox button before you input corresponding information.<br>
+    Notice that your should choose at least one kind of information.<br>
+    Make sure your information is valid.
+{% endblock %}
+{% block form %}
+    <form class="needs-validation" method="post" novalidate>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Current Selected ISBN</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" value="{{ user.select_ISBN }}"
+                   disabled>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-text bg-transparent border-0 p-0">
+                <input type="checkbox" class="btn-check" id="btn-ISBN" name="chk_ISBN" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn-ISBN">
+                    ISBN
+                </label>
+            </div>
+            <input type="text" class="form-control mx-2 {{ my_fb_class(form.ISBN) }} my-form-input"
+                   aria-label="Text input with radio button"
+                   placeholder="My ISBN" name="ISBN">
+            {{ my_fb_div(form.ISBN,'Modify successfully!') }}
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-text bg-transparent border-0 p-0">
+                <input type="checkbox" class="btn-check" id="btn-name" name="chk_name" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn-name">
+                    Book name
+                </label>
+            </div>
+            <input type="text" class="form-control mx-2 {{ my_fb_class(form.name) }} my-form-input"
+                   aria-label="Text input with radio button"
+                   placeholder="My book name" name="name">
+            {{ my_fb_div(form.name,'Modify successfully!') }}
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-text bg-transparent border-0 p-0">
+                <input type="checkbox" class="btn-check" id="btn-author" name="chk_author" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn-author">
+                    Author
+                </label>
+            </div>
+            <input type="text" class="form-control mx-2 {{ my_fb_class(form.author) }} my-form-input"
+                   aria-label="Text input with radio button"
+                   placeholder="My author" name="author">
+            {{ my_fb_div(form.author,'Modify successfully!') }}
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-text bg-transparent border-0 p-0">
+                <input type="checkbox" class="btn-check" id="btn-keyword" name="chk_keyword" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn-keyword">
+                    Keywords
+                </label>
+            </div>
+            <input type="text" class="form-control mx-2 {{ my_fb_class(form.keyword) }} my-form-input"
+                   aria-label="Text input with radio button"
+                   placeholder="My keywords" name="keyword">
+            {{ my_fb_div(form.keyword,'Modify successfully!') }}
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-text bg-transparent border-0 p-0">
+                <input type="checkbox" class="btn-check" id="btn-price" name="chk_price" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn-price">
+                    Price
+                </label>
+            </div>
+            <input type="number" min="0.01" step="0.01" id="inputPassword5"
+                   class="form-control mx-2 {{ my_fb_class(form.price) }} my-form-input"
+                   placeholder="My price" name="price">
+            {{ my_fb_div(form.price,'Modify successfully!') }}
+        </div>
+        <button type="submit" class="btn btn-primary {% if user.select_ISBN==' ' %}disabled{% endif %}">Modify</button>
+        {% if user.select_ISBN==' ' %}
+            <hr class="my-4">
+            <small class="text-body-secondary">
+                <span class="text-danger-emphasis">Attention: </span>You have not selected any book yet. Go to <a
+                    href="/select">select a book</a> first and then you can come back to modify.
+            </small>
+        {% endif %}
+    </form>
+    <script>
+        const input_texts = document.querySelectorAll('input[class$="my-form-input"]');
+        const check_boxes = document.querySelectorAll('input[type="checkbox"]');
+        check_boxes.forEach((box, index) => {
+            input_texts[index].disabled = true;
+            box.addEventListener('click', () => {
+                input_texts[index].disabled = !box.checked;
+            });
+        });
+    </script>
+{% endblock %}

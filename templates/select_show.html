@@ -1,0 +1,69 @@
+{% extends "common/content.html" %}
+{% block title %}
+    Select
+{% endblock %}
+{% block description %}
+    Input the ISBN to select a certain exist book.<br>
+    If there is no such a book in the database, a new book with only ISBN will be created.<br>
+    You can also click the show all button to conveniently view and select an exist book.
+{% endblock %}
+{% block form %}
+    <form id="select" class="needs-validation" method="post" action="/select" novalidate>
+        <div class="mb-3">
+            <label for="select_ISBN" class="form-label">ISBN</label>
+
+            <input type="text"
+                   class="form-control {{ my_fb_class(form.ISBN) }}"
+                   id="select_ISBN" placeholder="My ISBN" name="ISBN">
+            {{ my_fb_div(form.ISBN,'Select successfully!') }}
+        </div>
+        <button type="submit" class="btn btn-primary">Select</button>
+        <button type="submit" class="btn btn-secondary mx-2" form="show">Show all</button>
+    </form>
+    <form id="show" method="post" action="/select/show">
+    </form>
+{% endblock %}
+{% block second %}
+    <div class="container pb-4">
+        <p class="text-center">
+            {{ books | length }} books found.
+        </p>
+    </div>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for book in books %}
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                             xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                             preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                            <rect width="100%" height="100%" fill="#55595c"/>
+                            <text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ book.name }}</text>
+                        </svg>
+                        <div class="card-body">
+                            <p class="card-text">
+                                ISBN: {{ book.ISBN }}<br>
+                                Author: {{ book.author }}<br>
+                                Keywords:
+                                {% for word in book.keyword.split('|') %}
+                                    <span class="badge text-bg-light">{{ word }}</span>
+                                {% endfor %}
+                                <br>
+                                Stock: {{ book.stock }}
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-info"
+                                            onclick="document.getElementById('select_ISBN').value='{{ book.ISBN }}'">
+                                        Choose
+                                    </button>
+                                </div>
+                                <small class="text-body-secondary">${{ book.price }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "common/content.html" %}
+{% block title %}
+    Add User
+{% endblock %}
+{% block description %}
+    To add a new user, you should input the user id, password, user name and choose the privilege for the new account.
+    <br>
+    Make sure your input is valid.<br>
+    Notice that you <span class="text-warning-emphasis">cannot</span> create an account with privilege higher than your self.
+{% endblock %}
+{% block form %}
+    <form class="needs-validation" method="post" novalidate>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">User id</label>
+            <input type="text"
+                   class="form-control {{ my_fb_class(form.user_id) }}"
+                   id="exampleFormControlInput1" name="user_id"
+                   placeholder="My user id" value="{% if form.user_id.data %}{{ form.user_id.data }}{% endif %}">
+            {{ my_fb_div(form.user_id, 'Add user successfully!') }}
+        </div>
+        <div class="mb-3">
+            <label for="inputPassword5" class="form-label">Password</label>
+            <input type="password" id="inputPassword5"
+                   class="form-control {{ my_fb_class(form.password) }}"
+                   name="password" placeholder="My password">
+            {{ my_fb_div(form.password, 'Add user successfully!') }}
+        </div>
+        <div class="mb-3">
+            <label for="privilege" class="form-label">Privilege</label>
+            <select id="privilege" class="form-select {{ my_fb_class(form.privilege) }}" name="privilege">
+                <option selected value="1" class="m-2">1 - Customer</option>
+                <option value="3">3 - Employee</option>
+                <option value="7">7 - Manager</option>
+            </select>
+            {{ my_fb_div(form.privilege, 'Add user successfully!') }}
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput2" class="form-label">User name</label>
+            <input type="text"
+                   class="form-control {{ my_fb_class(form.user_name) }}"
+                   id="exampleFormControlInput2" name="user_name"
+                   placeholder="My user name">
+            {{ my_fb_div(form.user_name, 'Add user successfully!') }}
+        </div>
+        <button type="submit" class="btn btn-primary">Add user</button>
+    </form>
+{% endblock %}

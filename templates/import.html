@@ -1,0 +1,41 @@
+{% extends "common/content.html" %}
+{% block title %}
+    Import
+{% endblock %}
+{% block description %}
+    This page is for employees to import books with selected ISBN.<br>
+    Input the quantity and total cost to import.<br>
+    Make sure your input is valid.
+{% endblock %}
+{% block form %}
+    <form class="needs-validation" method="post" novalidate>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Current Selected ISBN</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1"
+                   placeholder="{{ user.select_ISBN }}"
+                   disabled>
+        </div>
+        <div class="mb-3">
+            <label for="quantity" class="form-label">Quantity</label>
+            <input type="number" min="1" id="quantity" class="form-control {{ my_fb_class(form.quantity) }}"
+                   name="quantity"
+                   placeholder="My quantity">
+            {{ my_fb_div(form.quantity,'Import successfully!') }}
+        </div>
+        <div class="mb-3">
+            <label for="total_cost" class="form-label">Total cost</label>
+            <input type="number" min="0.01" step="0.01" id="total_cost"
+                   class="form-control {{ my_fb_class(form.total_cost) }}" name="total_cost"
+                   placeholder="My total cost">
+            {{ my_fb_div(form.total_cost,'Import successfully!') }}
+        </div>
+        <button type="submit" class="btn btn-primary {% if user.select_ISBN==' ' %}disabled{% endif %}">import</button>
+        {% if user.select_ISBN==' ' %}
+            <hr class="my-4">
+            <small class="text-body-secondary">
+                <span class="text-danger-emphasis">Attention: </span>You have not selected any book yet. Go to <a
+                    href="/select">select a book</a> first and then you can come back to import.
+            </small>
+        {% endif %}
+    </form>
+{% endblock %}

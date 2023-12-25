@@ -1,0 +1,32 @@
+{% extends "common/content.html" %}
+{% block title %}
+    Buy
+{% endblock %}
+{% block description %}
+    Input the ISBN of the book you want to buy and the quantity.<br>
+    The total cost will be calculated and displayed.<br>
+    Make sure your input is valid.
+{% endblock %}
+{% block form %}
+    <form class="needs-validation" method="post" novalidate>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">ISBN</label>
+            <input type="text" class="form-control {{ my_fb_class(form.ISBN) }}" id="exampleFormControlInput1"
+                   name="ISBN" placeholder="My ISBN">
+            {{ my_fb_div(form.ISBN,'Buy successfully!') }}
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Quantity</label>
+            <input type="number" min="1" id="inputPassword5" class="form-control {{ my_fb_class(form.quantity) }}"
+                   name="quantity" placeholder="My quantity">
+            {{ my_fb_div(form.quantity,'Buy successfully!') }}
+        </div>
+        <button type="submit" class="btn btn-primary">buy</button>
+        {% if success %}
+            <hr class="my-4">
+            <small class="text-body-secondary">
+                <span class="text-success-emphasis">Info: </span>Totally cost ${{ total_cost }}.
+            </small>
+        {% endif %}
+    </form>
+{% endblock %}

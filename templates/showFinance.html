@@ -1,0 +1,26 @@
+{% extends "common/content.html" %}
+{% block title %}
+    Show Finance
+{% endblock %}
+{% block description %}
+    Input the quantity of transactions you want to count.<br>
+    If nothing input, all transactions will be count.<br>
+    Make sure your input is valid.
+{% endblock %}
+{% block form %}
+    <form class="needs-validation" method="post" novalidate>
+        <div class="mb-3">
+            <label for="count" class="form-label">Quantity</label>
+            <input type="number" min="1" id="count" class="form-control {{ my_fb_class(form.count) }}"
+                   name="count" placeholder="My quantity">
+            {{ my_fb_div(form.count,'Show finance successfully!') }}
+        </div>
+        <button type="submit" class="btn btn-primary">Show finance</button>
+        {% if success %}
+            <hr class="my-4">
+            <small class="text-body-secondary">
+                <span class="text-success-emphasis">Info: </span>{{ msg }}
+            </small>
+        {% endif %}
+    </form>
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends "common/content.html" %}
+{% block title %}
+    Show
+{% endblock %}
+{% block description %}
+    In this page, you can input the information of the book you want to search.<br>
+    Choose a kind of information and input your search criteria.<br>
+    If no information chosen, all books will be shown.
+{% endblock %}
+{% block form %}
+    <form class="needs-validation" method="post" novalidate>
+        <div class="input-group mb-3">
+            <div class="input-group-text bg-transparent border-0 p-0">
+                <input type="radio" class="btn-check" id="btn_ISBN" name="show_info" value="ISBN" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn_ISBN">
+                    ISBN
+                </label>
+            </div>
+            <input type="text" class="form-control mx-2 {{ my_fb_class(form.ISBN) }}"
+                   aria-label="Text input with radio button" placeholder="My ISBN"
+                   name="ISBN">
+            {{ my_fb_div(form.ISBN,'') }}
+
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-text bg-transparent border-0 p-0">
+                <input type="radio" class="btn-check" id="btn_name" name="show_info" value="name" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn_name">
+                    Book name
+                </label>
+            </div>
+            <input type="text" class="form-control mx-2 {{ my_fb_class(form.name) }}"
+                   aria-label="Text input with radio button"
+                   placeholder="My book name" name="name">
+            {{ my_fb_div(form.name,'') }}
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-text bg-transparent border-0 p-0">
+                <input type="radio" class="btn-check" id="btn_author" name="show_info" value="author"
+                       autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn_author">
+                    Author
+                </label>
+            </div>
+            <input type="text" class="form-control mx-2 {{ my_fb_class(form.author) }}"
+                   aria-label="Text input with radio button"
+                   placeholder="My author" name="author">
+            {{ my_fb_div(form.author,'') }}
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-text bg-transparent border-0 p-0">
+                <input type="radio" class="btn-check" id="btn_keyword" name="show_info" value="keyword"
+                       autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn_keyword">
+                    Keywords
+                </label>
+            </div>
+            <input type="text" class="form-control mx-2 {{ my_fb_class(form.keyword) }}"
+                   aria-label="Text input with radio button"
+                   placeholder="My keywords" name="keyword">
+            {{ my_fb_div(form.keyword,'') }}
+        </div>
+        <button type="submit" class="btn btn-primary">Show</button>
+    </form>
+    <script>
+        const input_texts = document.querySelectorAll('input[type="text"]');
+        const radio_buttons = document.querySelectorAll('input[type="radio"]');
+        radio_buttons.forEach((button, index) => {
+            input_texts[index].disabled = true;
+            button.addEventListener('click', () => {
+                // 禁用其他按钮对应的输入框
+                for (let i = 0; i < radio_buttons.length; i++) {
+                    if (i !== index) {
+                        input_texts[i].disabled = true;
+                    }
+                }
+                input_texts[index].disabled = false;
+            });
+        });
+    </script>
+{% endblock %}
+{% block second %}
+    <div class="container pb-4">
+        <p class="text-center">
+            {% if success %}
+                {{ books | length }} books found.
+            {% endif %}
+        </p>
+    </div>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for book in books %}
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                             xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                             preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                                                        <rect width="100%" height="100%" fill="#55595c"/>
+                            <text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ book.name }}</text>
+                        </svg>
+
+                        <div class="card-body">
+                            <p class="card-text">
+                                ISBN: {{ book.ISBN }}<br>
+                                Author: {{ book.author }}<br>
+                                Keywords:
+                                {% for word in book.keyword.split('|') %}
+                                    <span class="badge text-bg-light">{{ word }}</span>
+                                {% endfor %}
+                                <br>
+                                Stock: {{ book.stock }}
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    {#                                    <button type="button" class="btn btn-sm btn-outline-info">Select</button>#}
+                                </div>
+                                <small class="text-body-secondary">${{ book.price }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

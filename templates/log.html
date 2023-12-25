@@ -1,0 +1,61 @@
+{% extends "common/content.html" %}
+{% block title %}
+    Report and log
+{% endblock %}
+{% block description %}
+    Hello manager {{ user.user_id }}!<br>
+    In this page, you can choose one kind of information and read the report or log of
+    the bookstore system.
+{% endblock %}
+{% block form %}
+    <form class="needs-validation" method="post" novalidate>
+        <div class="input-group mb-3">
+            <div class="input-group-text bg-transparent border-0 p-0">
+                <input type="radio" class="btn-check" id="btn_finance" name="show_info" value="finance"
+                       autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="btn_finance">
+                    Finance
+                </label>
+            </div>
+            <div class="input-group-text" id="basic-addon3">Print the report of all transactions.</div>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-text bg-transparent border-0 p-0">
+                <input type="radio" class="btn-check" id="btn_employee" name="show_info" value="employee"
+                       autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn_employee">
+                    Employee
+                </label>
+            </div>
+            <div class="input-group-text" id="basic-addon3">Print the work report of all employees.</div>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-text bg-transparent border-0 p-0">
+                <input type="radio" class="btn-check" id="btn_log" name="show_info" value="log" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn_log">
+                    Log
+                </label>
+            </div>
+            <div class="input-group-text" id="basic-addon3">Print the log of the bookstore.</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Show</button>
+    </form>
+{% endblock %}
+{% block second %}
+    {% if success %}
+        <div class="container pb-4">
+            <p class="text-center">
+                <span class="text-success-emphasis">Info: </span>print successfully.
+            </p>
+        </div>
+        <div class="mb-3 col-10 mx-auto">
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Print textarea</label>
+                <textarea class="form-control" style="font-family: 'Consolas', monospace;white-space: pre; overflow-x: auto"
+                          id="exampleFormControlTextarea1" rows="20">{{ msg }}</textarea>
+                {#                    {{ msg |replace(' ', '&nbsp;')|replace('\t', '&nbsp;&nbsp;&nbsp;&nbsp;')|replace('\n', '<br>')|safe }}#}
+
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "common/content.html" %}
+{% block title %}
+    Register
+{% endblock %}
+{% block description %}
+    Input your user id, password and user name to register a new <span class="text-info-emphasis">customer</span>
+    account.<br>
+    Make sure your input is valid.
+{% endblock %}
+{% block form %}
+    <form class="needs-validation" method="post" novalidate>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">User id</label>
+            <input type="text"
+                   class="form-control {{ my_fb_class(form.user_id) }}"
+                   id="exampleFormControlInput1" name="user_id"
+                   placeholder="My user id" value="{% if form.user_id.data %}{{ form.user_id.data }}{% endif %}">
+            {{ my_fb_div(form.user_id,'Register successfully!') }}
+        </div>
+        <div class="mb-3">
+            <label for="inputPassword5" class="form-label">Password</label>
+            <input type="password" id="inputPassword5"
+                   class="form-control {{ my_fb_class(form.password) }}"
+                   name="password" placeholder="My password">
+            {{ my_fb_div(form.password,'Register successfully!') }}
+
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput2" class="form-label">User name</label>
+            <input type="text"
+                   class="form-control {{ my_fb_class(form.user_name) }}"
+                   id="exampleFormControlInput2" name="user_name"
+                   placeholder="My user name">
+            {{ my_fb_div(form.user_name,'Register successfully!') }}
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+{% endblock %}

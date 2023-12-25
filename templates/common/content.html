@@ -1,0 +1,55 @@
+{% extends "common/base.html" %}
+{% macro valid() %}
+    {% if invalid %}is-invalid{% endif %} {% if success %}is-valid{% endif %}
+{% endmacro %}
+{% macro fb_class(field) %}
+    {% if invalid or field.errors %}is-invalid{% endif %} {% if success %}is-valid{% endif %}
+{% endmacro %}
+{% macro my_fb_class(field) %}
+    {% if field.errors %}is-invalid{% endif %} {% if success %}is-valid{% endif %}
+{% endmacro %}
+{% macro fb_div(good,bad) %}
+    <div class="valid-feedback">
+        {{ good }}
+    </div>
+    <div class="invalid-feedback">
+        {% if invalid %}
+            Invalid.
+        {% else %}
+            {{ bad }}
+        {% endif %}
+    </div>
+{% endmacro %}
+{% macro my_fb_div(field,good) %}
+    <div class="valid-feedback">
+        {{ good }}
+    </div>
+    <div class="invalid-feedback">
+        {% for error in field.errors %}
+            {{ error }}<br>
+        {% endfor %}
+    </div>
+{% endmacro %}
+{% block content %}
+    <div class="container col-xl-10 col-xxl-8 px-4 py-5" style="margin-top: 7rem">
+        <div class="row align-items-center g-lg-5 py-5">
+            <div class="col-lg-7 text-center text-lg-start">
+                <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">
+                    {% block title %}
+                    {% endblock %}
+                </h1>
+                <hr class="my-4">
+                <p class="col-lg-10 fs-4">
+                    {% block description %}
+                    {% endblock %}
+                </p>
+            </div>
+            <div class="col-md-10 mx-auto col-lg-5">
+                {% block form %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+    {% block second %}
+    {% endblock %}
+{% endblock %}

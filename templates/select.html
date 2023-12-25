@@ -1,0 +1,25 @@
+{% extends "common/content.html" %}
+{% block title %}
+    Select
+{% endblock %}
+{% block description %}
+    Input the ISBN to select a certain exist book.<br>
+    If there is no such a book in the database, a new book with only ISBN will be created.<br>
+    You can also click the show all button to conveniently view and select an exist book.
+{% endblock %}
+{% block form %}
+    <form id="select" class="needs-validation" method="post" action="/select" novalidate>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">ISBN</label>
+
+            <input type="email"
+                   class="form-control {{ my_fb_class(form.ISBN) }}"
+                   id="exampleFormControlInput1" placeholder="My ISBN" name="ISBN">
+            {{ my_fb_div(form.ISBN,'Select successfully!') }}
+        </div>
+        <button type="submit" class="btn btn-primary">Select</button>
+        <button type="submit" class="btn btn-secondary mx-2" form="show">Show all</button>
+    </form>
+    <form id="show" method="post" action="/select/show">
+    </form>
+{% endblock %}

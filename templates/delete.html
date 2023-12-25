@@ -1,0 +1,26 @@
+{% extends "common/content.html" %}
+{% block title %}
+    Delete
+{% endblock %}
+{% block description %}
+    To delete an account, just input the user id and click the button!<br>
+    Only <span class="text-info-emphasis">manager</span> has the authority to delete an account.
+{% endblock %}
+{% block form %}
+    <form class="needs-validation" method="post" novalidate>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">User id</label>
+            <input type="text"
+                   class="form-control {{ my_fb_class(form.user_id) }}"
+                   id="exampleFormControlInput1" name="user_id"
+                   placeholder="My user id" value="{% if form.user_id.data %}{{ form.user_id.data }}{% endif %}">
+            {{ my_fb_div(form.user_id,'Delete successfully!') }}
+        </div>
+        <button type="submit" class="btn btn-primary">delete</button>
+    </form>
+    <hr class="my-4">
+    <small class="text-body-secondary">
+        <span class="text-danger-emphasis">Attention: </span>Once delete, all information of the account will disappear
+        for ever. Be careful!
+    </small>
+{% endblock %}
