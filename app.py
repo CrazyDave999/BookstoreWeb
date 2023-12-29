@@ -116,13 +116,13 @@ def show():
     if request.method == 'POST' and form.validate():
         invalid, success, books = cmd.show(form.ISBN.data, form.name.data, form.author.data, form.keyword.data)
         if not success:
-            if form.name.data:
+            if form.show_info.data == 'name':
                 form.name.errors.append(
                     'Only visible ASCII character, Chinese character except for \" available. Max length 60.')
-            if form.author.data:
+            if form.show_info.data == 'author':
                 form.author.errors.append(
                     'Only visible ASCII character, Chinese character except for \" available. Max length 60.')
-            if form.keyword.data:
+            if form.show_info.data == 'keyword':
                 form.keyword.errors.append(
                     'Only visible ASCII character, Chinese character, except for \" and | available. Max length 60.')
 
@@ -184,13 +184,13 @@ def modify():
         invalid, success = cmd.modify(form.ISBN.data, form.name.data, form.author.data, form.keyword.data,
                                       form.price.data)
         if not success:
-            if form.ISBN.data:
+            if form.chk_ISBN.data:
                 form.ISBN.errors.append('Invalid input.')
-            if form.name.data:
+            if form.chk_name.data:
                 form.name.errors.append('Invalid input.')
-            if form.author.data:
+            if form.chk_author.data:
                 form.author.errors.append('Invalid input.')
-            if form.keyword.data:
+            if form.chk_keyword.data:
                 form.keyword.errors.append('Invalid input.')
         else:
             cmd.get_current_user()
